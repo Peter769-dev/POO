@@ -2,38 +2,21 @@ using UnityEngine;
 
 public class Agent2 : PlayableCarrier
 {
-    // Costo de mana para lanzar habilidades
     [SerializeField]
     private float manaCost = 10f;
 
-    private void Update()
+    public override void UseSkill(int index)
     {
-        // Ejemplo: Lanzar habilidad al presionar la tecla "F"
-        if (Input.GetKeyDown(KeyCode.F))
-        {
-            CastSkill();
-        }
-    }
+        EnergyStats energySystem = GetComponent<EnergyStats>();
 
-    // Método para lanzar una habilidad
-    private void CastSkill()
-    {
-        if (energySystem != null) // energySystem es heredado de PlayableCarrier
+        if (energySystem != null && energySystem.CurrentEnergy >= manaCost)
         {
-            if (energySystem.CurrentEnergy >= manaCost)
-            {
-                energySystem.UseEnergy(manaCost);
-                Debug.Log("Habilidad lanzada, mana consumido.");
-                // Aquí puedes agregar la lógica de la habilidad
-            }
-            else
-            {
-                Debug.LogWarning("No hay suficiente mana para lanzar la habilidad.");
-            }
+            energySystem.UseEnergy(manaCost); // Consume mana
+            base.UseSkill(index); // Usa la habilidad desde PlayableCarrier
         }
         else
         {
-            Debug.LogError("No se encontró un sistema de energía en el agente.");
+            Debug.LogWarning("No hay suficiente mana para usar esta habilidad.");
         }
     }
 

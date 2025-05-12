@@ -2,40 +2,27 @@ using UnityEngine;
 
 public class Agent1 : PlayableCarrier
 {
-    // Costo de vida para lanzar habilidades
     [SerializeField]
     private float healthCost = 10f;
 
-    private void Update()
-    {
-        // Ejemplo: Lanzar habilidad al presionar la tecla "F"
-        if (Input.GetKeyDown(KeyCode.F))
-        {
-            CastSkill();
-        }
-    }
-
-    // Método para lanzar una habilidad
-    private void CastSkill()
+    public override void UseSkill(int index)
     {
         HealthStats healthSystem = GetComponent<HealthStats>();
 
-        if (healthSystem != null)
+        if (healthSystem != null && healthSystem.CurrentHealth > healthCost)
         {
-            if (healthSystem.CurrentHealth > healthCost)
-            {
-                healthSystem.TakeDamage(healthCost); // Consume vida
-                Debug.Log("Habilidad lanzada, vida consumida.");
-                // Aquí puedes agregar la lógica de la habilidad
-            }
-            else
-            {
-                Debug.LogWarning("No hay suficiente vida para lanzar la habilidad.");
-            }
+            healthSystem.TakeDamage(healthCost); // Consume vida
+            base.UseSkill(index); // Usa la habilidad desde PlayableCarrier
         }
         else
         {
-            Debug.LogError("No se encontró un sistema de salud en el agente.");
+            Debug.LogWarning("No hay suficiente vida para usar esta habilidad.");
         }
+    }
+
+    protected override void OnDeath()
+    {
+        Debug.Log("El Agente 1 ha muerto.");
+        // Lógica adicional específica para Agent1
     }
 }

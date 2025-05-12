@@ -89,7 +89,6 @@ GameObject:
   - component: {fileID: 2815604293360727349}
   - component: {fileID: 3870469096236118820}
   - component: {fileID: 6062624731979300798}
-  - component: {fileID: 158384194374405154}
   - component: {fileID: 8689683560057841785}
   - component: {fileID: -7895428074188300273}
   m_Layer: 6
@@ -156,18 +155,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!114 &158384194374405154
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7419355606938904913}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 43d9fc530ad58d2448484d08bc655993, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &8689683560057841785
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -192,6 +179,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c6ae46b74fb9154e9b42b0fdfc019b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  skills:
+  - {fileID: 11400000, guid: e8b867c31a90aa547bcc9310e4abae67, type: 2}
+  - {fileID: 11400000, guid: 139d65f4f10137847b9f353f5cdf68c6, type: 2}
+  - {fileID: 11400000, guid: 1f68b8f53c2c75c45a9b122ca7253906, type: 2}
   healthCost: 10
 --- !u!1 &8675342509299124542
 GameObject:

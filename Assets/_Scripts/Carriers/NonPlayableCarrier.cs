@@ -2,35 +2,31 @@ using UnityEngine;
 
 public class NonPlayableCarrier : Carrier
 {
-    [SerializeField]
-    private float damageAmount = 10f; // Cantidad de daño que recibirá al presionar F
-
-    private void Update()
-    {
-        // Detectar si se presiona la tecla F
-        if (Input.GetKeyDown(KeyCode.F))
-        {
-            TakeDamage(damageAmount);
-        }
-    }
-
     // Método para recibir daño
     public void TakeDamage(float amount)
     {
         if (healthSystem != null)
         {
-            healthSystem.TakeDamage(amount);
+            healthSystem.TakeDamage(amount); // Reducir la vida
             Debug.Log($"NonPlayableCarrier recibió {amount} de daño. Vida restante: {healthSystem.CurrentHealth}");
 
             if (healthSystem.CurrentHealth <= 0)
             {
-                OnDeath();
+                OnDeath(); // Llamar al método de muerte
             }
         }
         else
         {
             Debug.LogError("No se encontró un sistema de salud en NonPlayableCarrier.");
         }
+    }
+
+    void Update()
+    {
+        if (healthSystem.CurrentHealth <= 0)
+            {
+                OnDeath(); // Llamar al método de muerte
+            }
     }
 
     // Método para manejar la muerte

@@ -18,7 +18,7 @@ public class UI : MonoBehaviour
     void Start()
     {
         // Buscar automáticamente un objeto que herede de PlayableCarrier
-        player = FindObjectOfType<PlayableCarrier>();
+        player = Object.FindFirstObjectByType<PlayableCarrier>();
 
         // Validar referencias
         if (player == null)

@@ -114,6 +114,7 @@ GameObject:
   - component: {fileID: 634661290067273446}
   - component: {fileID: 372724613004033092}
   - component: {fileID: 8371200053793178003}
+  - component: {fileID: 2123542511615548915}
   m_Layer: 6
   m_Name: Dummy
   m_TagString: Untagged
@@ -150,7 +151,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c7d849295f7c6e4fb9fc8f49fb9ec50, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damageAmount: 20
 --- !u!114 &372724613004033092
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -177,6 +177,27 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   healthSlider: {fileID: 5191459262330619444}
   healthStats: {fileID: 372724613004033092}
+--- !u!65 &2123542511615548915
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3931055578327366082}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.71797884, y: 0.2, z: 1}
+  m_Center: {x: -0.15898938, y: -0.45999998, z: 0}
 --- !u!1 &4082767704443447765
 GameObject:
   m_ObjectHideFlags: 0

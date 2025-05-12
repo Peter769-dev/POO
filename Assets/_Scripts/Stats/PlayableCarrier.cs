@@ -1,85 +1,50 @@
 using UnityEngine;
 using System.Collections.Generic;
 
-// Clase para un portador jugable
 public class PlayableCarrier : Carrier
 {
-    // Lista de habilidades del jugador
-    // private List<Skill> skills;
+    [SerializeField]
+    private List<Skill> skills; // Lista de habilidades asignadas desde el Inspector
 
-    // Referencia al sistema de energía
-    protected EnergyStats energySystem;
-
-    private void Awake()
+    private void Update()
     {
-        // Inicializar la lista de habilidades
-        // skills = new List<Skill>();
-
-        // Obtener referencia al sistema de energía
-        energySystem = GetComponent<EnergyStats>();
-        if (energySystem == null)
+        // Activar habilidades con las teclas 1, 2 y 3
+        if (Input.GetKeyDown(KeyCode.Alpha1) && skills.Count > 0)
         {
-            Debug.LogError("No se encontró un componente EnergyStats en el portador jugable.");
+            UseSkill(0);
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha2) && skills.Count > 1)
+        {
+            UseSkill(1);
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha3) && skills.Count > 2)
+        {
+            UseSkill(2);
+        }
+
+        // Reducir el enfriamiento de todas las habilidades
+        foreach (Skill skill in skills)
+        {
+            skill.CooldownTick(Time.deltaTime);
         }
     }
 
-    // Método para agregar una habilidad al portador
-    /*
-    public void AddSkill(Skill skill)
-    {
-        if (skill != null && !skills.Contains(skill))
-        {
-            skills.Add(skill);
-            Debug.Log($"Habilidad {skill.GetName()} añadida.");
-        }
-    }
-    */
-
-    // Método para usar una habilidad
-    /*
-    public void UseSkill(int index)
+    public virtual void UseSkill(int index)
     {
         if (index >= 0 && index < skills.Count)
         {
-            skills[index].Use();
+            Skill skill = skills[index];
+            skill.Use(gameObject); // Pasa el GameObject del usuario a la habilidad
         }
         else
         {
             Debug.LogWarning("Índice de habilidad inválido.");
         }
     }
-    */
 
-    // Método para consumir energía
-    public void ConsumeEnergy(float amount)
-    {
-        if (energySystem != null)
-        {
-            energySystem.UseEnergy(amount);
-        }
-        else
-        {
-            Debug.LogWarning("No se puede consumir energía porque no hay un sistema de energía.");
-        }
-    }
-
-    // Método para recuperar energía
-    public void RecoverEnergy(float amount)
-    {
-        if (energySystem != null)
-        {
-            energySystem.RecoverEnergy(amount);
-        }
-        else
-        {
-            Debug.LogWarning("No se puede recuperar energía porque no hay un sistema de energía.");
-        }
-    }
-
-    // Implementación del método abstracto OnDeath
     protected override void OnDeath()
     {
         Debug.Log("El portador jugable ha muerto.");
-        // Lógica adicional para manejar la muerte del jugador
+        // Aquí puedes agregar lógica adicional, como reiniciar el nivel o mostrar un mensaje de derrota
     }
 }
