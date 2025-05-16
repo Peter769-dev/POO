@@ -1,32 +1,45 @@
 using UnityEngine;
 
-// Clase base abstracta para estadísticas generales
+/// <summary>
+/// Clase base abstracta para estadísticas generales.
+/// Proporciona encapsulación y métodos comunes para cualquier tipo de estadística.
+/// </summary>
 public abstract class Stats : MonoBehaviour
 {
-    // Propiedades protegidas para encapsulación
-    [SerializeField] protected int maxValue = 100;
-    [SerializeField] protected int currentValue = int.MaxValue;
+    [SerializeField] protected int maxValue = 100;        // Valor máximo de la estadística
+    [SerializeField] protected int currentValue = int.MaxValue; // Valor actual
 
-    // Métodos abstractos para polimorfismo
+    /// <summary>
+    /// Método abstracto para recibir daño o modificar la estadística.
+    /// </summary>
     public abstract void TakeDamage(float amount);
 
-    // Método común para clamping
+    /// <summary>
+    /// Limita el valor actual entre 0 y el máximo.
+    /// </summary>
     protected void ClampValue()
     {
         currentValue = Mathf.Clamp(currentValue, 0, maxValue);
     }
 }
 
-// Clase derivada para estadísticas de salud
+/// <summary>
+/// Clase derivada para estadísticas de salud.
+/// </summary>
 public class HealthStats : Stats
 {
-    // Propiedades públicas con encapsulación
+    /// <summary>
+    /// Vida actual del personaje.
+    /// </summary>
     public int CurrentHealth
     {
         get => currentValue;
         private set => currentValue = Mathf.Clamp(value, 0, maxValue);
     }
 
+    /// <summary>
+    /// Vida máxima del personaje.
+    /// </summary>
     public int MaxHealth
     {
         get => maxValue;
@@ -40,7 +53,10 @@ public class HealthStats : Stats
         currentValue = maxValue;
     }
 
-    // Implementación del método abstracto para recibir daño
+    /// <summary>
+    /// Recibe daño (o curación si el valor es negativo) y verifica si el personaje muere.
+    /// </summary>
+    /// <param name="amount">Cantidad de daño (o curación negativa).</param>
     public override void TakeDamage(float amount)
     {
         CurrentHealth -= Mathf.RoundToInt(amount);
@@ -50,13 +66,15 @@ public class HealthStats : Stats
         {
             Debug.Log("El personaje ha muerto.");
             OnDeath();
-        }   
+        }
     }
 
-    // Método virtual para manejar la muerte (puede ser sobrescrito)
+    /// <summary>
+    /// Método virtual para manejar la muerte (puede ser sobrescrito por clases hijas).
+    /// </summary>
     protected virtual void OnDeath()
     {
-        Debug.Log("Manejando la muerte del personaje.");
+        //Debug.Log("Manejando la muerte del personaje.");
         // Lógica adicional para la muerte
     }
 }

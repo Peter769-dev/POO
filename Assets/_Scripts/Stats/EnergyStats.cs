@@ -1,26 +1,36 @@
 using UnityEngine;
 
-// Clase para manejar las estadísticas de energía
+/// <summary>
+/// Clase para manejar las estadísticas de energía (mana) de un personaje.
+/// Permite regeneración automática, por interacción o ninguna, según el tipo configurado.
+/// </summary>
 public class EnergyStats : MonoBehaviour
 {
-    // Propiedades protegidas para encapsulación
-    protected int currentEnergy;
-    protected int maxEnergy;
+    protected int currentEnergy; // Energía actual
+    protected int maxEnergy;     // Energía máxima
 
-    // Tipo de condición de energía
-    public EnergyConditionType EnergyCondition { get; set; }
+    [SerializeField] private EnergyConditionType energyCondition = EnergyConditionType.None;
+    /// <summary>
+    /// Tipo de condición que determina cómo se regenera la energía.
+    /// </summary>
+    public EnergyConditionType EnergyCondition
+    {
+        get => energyCondition;
+        set => energyCondition = value;
+    }
 
-    // Referencia al sistema de salud
-    private HealthStats healthSystem;
+    private HealthStats healthSystem; // Referencia opcional al sistema de salud
+
+    // Variables para regeneración por tiempo
+    private float timeCounter = 0f;
+    private const float regenInterval = 5f; // Intervalo de 5 segundos
+    private const int regenAmount = 5;      // Cantidad de energía a regenerar
 
     private void Start()
     {
-        // Inicialización de valores
         maxEnergy = 100;
         currentEnergy = maxEnergy;
-        EnergyCondition = EnergyConditionType.None; // Condición predeterminada
 
-        // Obtener referencia al sistema de salud
         healthSystem = GetComponent<HealthStats>();
         if (healthSystem == null)
         {
@@ -28,7 +38,15 @@ public class EnergyStats : MonoBehaviour
         }
     }
 
-    // Método para consumir energía
+    private void Update()
+    {
+        UpdateEnergy();
+    }
+
+    /// <summary>
+    /// Consume energía.
+    /// </summary>
+    /// <param name="amount">Cantidad de energía a consumir (puede ser negativa para restaurar).</param>
     public void UseEnergy(float amount)
     {
         currentEnergy -= Mathf.RoundToInt(amount);
@@ -41,17 +59,22 @@ public class EnergyStats : MonoBehaviour
         }
     }
 
-    // Método para recuperar energía
+    /// <summary>
+    /// Recupera energía.
+    /// </summary>
+    /// <param name="amount">Cantidad de energía a recuperar.</param>
     public void RecoverEnergy(float amount)
     {
         currentEnergy += Mathf.RoundToInt(amount);
         currentEnergy = Mathf.Clamp(currentEnergy, 0, maxEnergy);
     }
 
-    // Método para curar energía y vida
+    /// <summary>
+    /// Cura vida usando el sistema de salud, si está disponible.
+    /// </summary>
+    /// <param name="amount">Cantidad de vida a curar.</param>
     public void Heal(float amount)
     {
-        // Restaurar vida si el sistema de salud está disponible
         if (healthSystem != null)
         {
             healthSystem.TakeDamage(-amount); // Curar vida usando daño negativo
@@ -59,37 +82,46 @@ public class EnergyStats : MonoBehaviour
         }
     }
 
-    // Método para actualizar la energía según la condición
-    public void UpdateEnergy()
+    /// <summary>
+    /// Actualiza la energía según la condición configurada.
+    /// </summary>
+    private void UpdateEnergy()
     {
-        switch (EnergyCondition)
+        switch (energyCondition)
         {
             case EnergyConditionType.Time:
-                Debug.Log("Actualizando energía basada en el tiempo.");
-                // Lógica para regenerar energía con el tiempo
+                // Regenera energía cada 5 segundos
+                timeCounter += Time.deltaTime;
+                if (timeCounter >= regenInterval)
+                {
+                    RecoverEnergy(regenAmount);
+                    timeCounter = 0f;
+                    Debug.Log("Energía regenerada por tiempo.");
+                }
                 break;
 
             case EnergyConditionType.Interaction:
-                Debug.Log("Actualizando energía basada en interacciones.");
-                // Lógica para regenerar energía con interacciones
+                // Regenera energía al presionar la tecla "m"
+                if (Input.GetKeyDown(KeyCode.M))
+                {
+                    RecoverEnergy(50);
+                    Debug.Log("Energía regenerada por interacción.");
+                }
                 break;
 
             case EnergyConditionType.None:
-                Debug.Log("Sin condición de energía.");
-                // No se realiza ninguna acción
+                // No realiza ninguna acción
                 break;
         }
     }
 
-    // Propiedad pública para obtener la energía actual
-    public int CurrentEnergy
-    {
-        get => currentEnergy;
-    }
+    /// <summary>
+    /// Energía actual.
+    /// </summary>
+    public int CurrentEnergy => currentEnergy;
 
-    // Propiedad pública para obtener la energía máxima
-    public int MaxEnergy
-    {
-        get => maxEnergy;
-    }
+    /// <summary>
+    /// Energía máxima.
+    /// </summary>
+    public int MaxEnergy => maxEnergy;
 }

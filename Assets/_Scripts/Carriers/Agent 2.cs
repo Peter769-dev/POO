@@ -1,7 +1,13 @@
 using UnityEngine;
 
+/// <summary>
+/// Portador jugable que usa energía (mana) para activar habilidades.
+/// </summary>
 public class Agent2 : PlayableCarrier
 {
+    /// <summary>
+    /// Usa la habilidad si hay suficiente energía y el enfriamiento lo permite.
+    /// </summary>
     public override void UseSkill(int index)
     {
         if (index < 0 || index >= skills.Count) return;
@@ -25,6 +31,9 @@ public class Agent2 : PlayableCarrier
         }
     }
 
+    /// <summary>
+    /// Lógica de muerte específica para Agent2.
+    /// </summary>
     protected override void OnDeath()
     {
         Debug.Log("El Agente 2 ha muerto.");

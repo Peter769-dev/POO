@@ -1,5 +1,8 @@
 using UnityEngine;
 
+/// <summary>
+/// Controla el área de daño persistente: aplica daño periódico a los objetivos dentro del área.
+/// </summary>
 public class AreaDamageZone : MonoBehaviour
 {
     private float damage;
@@ -9,6 +12,9 @@ public class AreaDamageZone : MonoBehaviour
     private float timer;
     private float tickTimer;
 
+    /// <summary>
+    /// Inicializa los parámetros del área de daño.
+    /// </summary>
     public void Initialize(float damage, float tickInterval, float duration, LayerMask targetLayer)
     {
         this.damage = damage;
@@ -36,12 +42,14 @@ public class AreaDamageZone : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Aplica daño a todos los objetivos dentro del área.
+    /// </summary>
     void ApplyDamage()
     {
         var box = GetComponent<BoxCollider2D>();
         if (box == null) return;
 
-        // Calcula el centro y tamaño del área
         Vector2 center = (Vector2)transform.position + box.offset;
         Vector2 size = box.size * transform.lossyScale;
 

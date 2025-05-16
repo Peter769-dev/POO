@@ -1,10 +1,16 @@
 using UnityEngine;
 using System.Collections.Generic;
 
+/// <summary>
+/// Clase base para portadores jugables. Permite usar habilidades y gestiona su enfriamiento.
+/// </summary>
 public class PlayableCarrier : Carrier
 {
+    /// <summary>
+    /// Lista de habilidades asignadas desde el Inspector.
+    /// </summary>
     [SerializeField]
-    protected List<Skill> skills; // Lista de habilidades asignadas desde el Inspector
+    protected List<Skill> skills;
 
     private void Update()
     {
@@ -29,6 +35,9 @@ public class PlayableCarrier : Carrier
         }
     }
 
+    /// <summary>
+    /// Usa la habilidad en el índice dado si existe.
+    /// </summary>
     public virtual void UseSkill(int index)
     {
         if (index >= 0 && index < skills.Count)
@@ -42,6 +51,9 @@ public class PlayableCarrier : Carrier
         }
     }
 
+    /// <summary>
+    /// Maneja la lógica de muerte del portador jugable.
+    /// </summary>
     protected override void OnDeath()
     {
         Debug.Log("El portador jugable ha muerto.");

@@ -1,5 +1,8 @@
 using UnityEngine;
 
+/// <summary>
+/// Controla el comportamiento de un proyectil: movimiento, colisión y daño.
+/// </summary>
 public class ProjectileBehavior : MonoBehaviour
 {
     private float damage; // Daño que inflige el proyectil
@@ -23,19 +26,19 @@ public class ProjectileBehavior : MonoBehaviour
         // Solo destruir el proyectil si colisiona con un objeto con la tag "Enemy"
         if (other.CompareTag("Enemy"))
         {
-            // Detectar colisión con un objeto que tenga HealthStats
             HealthStats targetHealth = other.GetComponent<HealthStats>();
             if (targetHealth != null)
             {
                 targetHealth.TakeDamage(damage);
                 Debug.Log($"El proyectil infligió {damage} de daño a {other.name}.");
             }
-            // Destruir el proyectil al impactar
             Destroy(gameObject);
         }
     }
 
-    // Método para configurar el daño del proyectil
+    /// <summary>
+    /// Configura el daño del proyectil.
+    /// </summary>
     public void SetDamage(float damage)
     {
         this.damage = damage;

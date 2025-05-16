@@ -1,12 +1,19 @@
 using UnityEngine;
 
-// Clase base para los portadores (Carrier)
+/// <summary>
+/// Clase base abstracta para los portadores (Carrier).
+/// Define la referencia al sistema de salud y métodos para recibir daño y manejar la muerte.
+/// </summary>
 public abstract class Carrier : MonoBehaviour
 {
-    // Referencia al sistema de salud
+    /// <summary>
+    /// Referencia al sistema de salud del portador.
+    /// </summary>
     protected HealthStats healthSystem;
 
-    // Método para inicializar el sistema de salud
+    /// <summary>
+    /// Inicializa el sistema de salud al iniciar el objeto.
+    /// </summary>
     protected virtual void Start()
     {
         healthSystem = GetComponent<HealthStats>();
@@ -16,7 +23,9 @@ public abstract class Carrier : MonoBehaviour
         }
     }
 
-    // Método para recibir daño
+    /// <summary>
+    /// Método virtual para recibir daño y reducir la vida.
+    /// </summary>
     public virtual void ReceiveDamage(float amount)
     {
         if (healthSystem != null)
@@ -25,6 +34,8 @@ public abstract class Carrier : MonoBehaviour
         }
     }
 
-    // Método abstracto para manejar la muerte (puede ser implementado por clases derivadas)
+    /// <summary>
+    /// Método abstracto para manejar la muerte, implementado por las clases derivadas.
+    /// </summary>
     protected abstract void OnDeath();
 }

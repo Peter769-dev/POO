@@ -1,11 +1,15 @@
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// Controla la barra de vida (Slider) de un Dummy, sincronizándola con su HealthStats.
+/// </summary>
 public class DummyHealth : MonoBehaviour
 {
     [SerializeField] private Slider healthSlider; // Referencia al Slider de la UI
+    public Slider HealthSlider => healthSlider;   // Propiedad pública de solo lectura
 
-    public HealthStats healthStats;
+    public HealthStats healthStats; // Referencia al componente HealthStats
 
     private void Start()
     {

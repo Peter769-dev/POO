@@ -1,9 +1,12 @@
 using UnityEngine;
 
+/// <summary>
+/// Habilidad que cura vida al usuario.
+/// </summary>
 [CreateAssetMenu(fileName = "New Heal", menuName = "Skills/Heal")]
 public class Heal : Skill
 {
-    [SerializeField] private float healAmount;
+    [SerializeField] private float healAmount; // Cantidad de vida a curar
 
     public override void Execute(GameObject user)
     {

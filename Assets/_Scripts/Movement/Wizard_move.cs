@@ -11,13 +11,11 @@ public class Wizard_move : MonoBehaviour
 
     private void Awake()
     {
-        // Obtiene la referencia al Rigidbody2D
         rb = GetComponent<Rigidbody2D>();
     }
 
     private void Update()
     {
-        // Lee la entrada del usuario cada frame
         Move();
     }
 
@@ -34,7 +32,6 @@ public class Wizard_move : MonoBehaviour
 
     private void OnDisable()
     {
-        // Detiene el movimiento si el objeto se desactiva
         if (rb != null)
             rb.linearVelocity = Vector2.zero;
     }
