@@ -23,7 +23,7 @@ public class AreaDamage : Skill
         {
             var box = area.GetComponent<BoxCollider2D>();
             if (box != null)
-                box.size = new Vector2(radius, radius);
+                //box.size = new Vector2(radius, radius);
 
             zone.Initialize(damage, tickInterval, duration, targetLayer);
         }
