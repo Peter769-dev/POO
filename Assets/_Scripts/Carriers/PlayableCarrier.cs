@@ -6,14 +6,25 @@ using System.Collections.Generic;
 /// </summary>
 public class PlayableCarrier : Carrier
 {
-    /// <summary>
-    /// Lista de habilidades asignadas desde el Inspector.
-    /// </summary>
+    [SerializeField]
+    protected EnergyStats energySystem; // Referencia al sistema de energía (mana)
+
+    // Lista de habilidades asignadas desde el Inspector.
     [SerializeField]
     protected List<Skill> skills;
+    public EnergyStats EnergySystem => energySystem;
+
+    protected override void Start()
+    {
+        base.Start(); // Inicializa el sistema de salud
+        energySystem.Initialize();
+    }
 
     private void Update()
     {
+        // Verifica si el sistema de salud está asignado
+        energySystem.UpdateEnergy();
+
         // Activar habilidades con las teclas 1, 2 y 3
         if (Input.GetKeyDown(KeyCode.Alpha1) && skills.Count > 0)
         {
@@ -35,11 +46,10 @@ public class PlayableCarrier : Carrier
         }
     }
 
-    /// <summary>
-    /// Usa la habilidad en el índice dado si existe.
-    /// </summary>
+    // Usa la habilidad en el índice dado si existe.
     public virtual void UseSkill(int index)
     {
+        // Verifica si el índice es válido
         if (index >= 0 && index < skills.Count)
         {
             Skill skill = skills[index];
@@ -51,9 +61,7 @@ public class PlayableCarrier : Carrier
         }
     }
 
-    /// <summary>
-    /// Maneja la lógica de muerte del portador jugable.
-    /// </summary>
+    // Maneja la lógica de muerte del portador jugable.
     protected override void OnDeath()
     {
         Debug.Log("El portador jugable ha muerto.");

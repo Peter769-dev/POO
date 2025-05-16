@@ -12,13 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48e5927d2075f0845835648421a985ae, type: 3}
   m_Name: Area Damage
   m_EditorClassIdentifier: 
-  SkillName: Circulo arcano
-  Icon: {fileID: -3279649568605630601, guid: 85597eefab724904d8d22a4a0436c56f, type: 3}
-  Cooldown: 3
-  CurrentCooldown: 0
-  ActivationCost: 10
+  skillName: 
+  icon: {fileID: 0}
+  cooldown: 5
+  activationCost: 10
   damage: 15
-  radius: 1
+  radius: 3
   targetLayer:
     serializedVersion: 2
     m_Bits: 512

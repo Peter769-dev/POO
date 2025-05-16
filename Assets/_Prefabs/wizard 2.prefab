@@ -12,9 +12,7 @@ GameObject:
   - component: {fileID: 6062624731979300798}
   - component: {fileID: 1818178803859504835}
   - component: {fileID: 3870469096236118820}
-  - component: {fileID: 8689683560057841785}
   - component: {fileID: 5102330148851172992}
-  - component: {fileID: 158384194374405154}
   m_Layer: 3
   m_Name: wizard 2
   m_TagString: Player
@@ -124,20 +122,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 3
---- !u!114 &8689683560057841785
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7419355606938904913}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e20c5d5a8740ab341a06bf948bafb798, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxValue: 100
-  currentValue: 100
 --- !u!114 &5102330148851172992
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -150,23 +134,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 38ad4e15b7261ec4a9f26801138e0540, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  healthSystem:
+    maxValue: 100
+  energySystem:
+    maxValue: 100
+    energyCondition: 0
   skills:
   - {fileID: 11400000, guid: e8b867c31a90aa547bcc9310e4abae67, type: 2}
   - {fileID: 11400000, guid: 139d65f4f10137847b9f353f5cdf68c6, type: 2}
   - {fileID: 11400000, guid: 1f68b8f53c2c75c45a9b122ca7253906, type: 2}
---- !u!114 &158384194374405154
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7419355606938904913}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 43d9fc530ad58d2448484d08bc655993, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  energyCondition: 2
 --- !u!1 &8675342509299124542
 GameObject:
   m_ObjectHideFlags: 0

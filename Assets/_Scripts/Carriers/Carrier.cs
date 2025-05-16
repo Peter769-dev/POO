@@ -6,36 +6,25 @@ using UnityEngine;
 /// </summary>
 public abstract class Carrier : MonoBehaviour
 {
-    /// <summary>
-    /// Referencia al sistema de salud del portador.
-    /// </summary>
-    protected HealthStats healthSystem;
+    // Referencia al sistema de salud del portador.
+    [SerializeField] protected HealthStats healthSystem;
+    public HealthStats HealthSystem => healthSystem;
 
-    /// <summary>
-    /// Inicializa el sistema de salud al iniciar el objeto.
-    /// </summary>
+    // Inicializa el sistema de salud al iniciar el objeto.
     protected virtual void Start()
     {
-        healthSystem = GetComponent<HealthStats>();
-        if (healthSystem == null)
-        {
-            Debug.LogError("No se encontró un componente HealthStats en el Carrier.");
-        }
+        healthSystem.Initialize();
     }
 
-    /// <summary>
-    /// Método virtual para recibir daño y reducir la vida.
-    /// </summary>
+    // Método virtual para recibir daño y reducir la vida.
     public virtual void ReceiveDamage(float amount)
     {
         if (healthSystem != null)
         {
-            healthSystem.TakeDamage(amount);
+            healthSystem.AffectStat(amount);
         }
     }
 
-    /// <summary>
-    /// Método abstracto para manejar la muerte, implementado por las clases derivadas.
-    /// </summary>
+    // Método abstracto para manejar la muerte, implementado por las clases derivadas.
     protected abstract void OnDeath();
 }

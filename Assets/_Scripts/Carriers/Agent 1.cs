@@ -10,30 +10,32 @@ public class Agent1 : PlayableCarrier
     /// </summary>
     public override void UseSkill(int index)
     {
+        // Verifica si el índice es válido
         if (index < 0 || index >= skills.Count) return;
         Skill skill = skills[index];
-        HealthStats healthSystem = GetComponent<HealthStats>();
-
+        // Verifica si la habilidad está lista para usarse
         if (!skill.IsReady())
-        {
+        {   
+            // Si no está lista, muestra un mensaje de advertencia
             Debug.LogWarning($"{skill.SkillName} está en enfriamiento.");
             return;
         }
 
+        // Verifica si hay suficiente vida para usar la habilidad
         if (healthSystem != null && healthSystem.CurrentHealth > skill.ActivationCost)
         {
-            healthSystem.TakeDamage(skill.ActivationCost);
+            // Resta la vida necesaria para usar la habilidad
+            healthSystem.AffectStat(-skill.ActivationCost);
             skill.Use(gameObject);
         }
         else
         {
+            // Si no hay suficiente vida, muestra un mensaje de advertencia
             Debug.LogWarning("No hay suficiente vida para usar esta habilidad.");
         }
     }
 
-    /// <summary>
-    /// Lógica de muerte específica para Agent1.
-    /// </summary>
+    // Lógica adicional al morir.
     protected override void OnDeath()
     {
         Debug.Log("El Agente 1 ha muerto.");

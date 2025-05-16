@@ -26,10 +26,11 @@ public class ProjectileBehavior : MonoBehaviour
         // Solo destruir el proyectil si colisiona con un objeto con la tag "Enemy"
         if (other.CompareTag("Enemy"))
         {
-            HealthStats targetHealth = other.GetComponent<HealthStats>();
+            HealthStats targetHealth = other.GetComponent<Carrier>().HealthSystem;
+
             if (targetHealth != null)
             {
-                targetHealth.TakeDamage(damage);
+                targetHealth.AffectStat(-damage);
                 Debug.Log($"El proyectil infligió {damage} de daño a {other.name}.");
             }
             Destroy(gameObject);

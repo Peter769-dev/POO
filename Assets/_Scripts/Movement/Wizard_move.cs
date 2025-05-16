@@ -19,9 +19,7 @@ public class Wizard_move : MonoBehaviour
         Move();
     }
 
-    /// <summary>
-    /// Lee la entrada y mueve el personaje usando Rigidbody2D.
-    /// </summary>
+    // Lee la entrada y mueve el personaje usando Rigidbody2D.
     private void Move()
     {
         float horizontal = Input.GetAxisRaw("Horizontal");

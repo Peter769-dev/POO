@@ -5,36 +5,20 @@ using UnityEngine;
 /// </summary>
 public class NonPlayableCarrier : Carrier
 {
+    // Usa la habilidad si hay suficiente vida y el enfriamiento lo permite.
     [Header("UI")]
     [SerializeField] private DummyHealth dummyHealth; // Asigna esto desde el inspector
 
-    /// <summary>
-    /// Método para recibir daño y verificar muerte.
-    /// </summary>
-    public void TakeDamage(float amount)
-    {
-        if (healthSystem != null)
-        {
-            healthSystem.TakeDamage(amount); // Reducir la vida
-            Debug.Log($"NonPlayableCarrier recibió {amount} de daño. Vida restante: {healthSystem.CurrentHealth}");
-        }
-        else
-        {
-            Debug.LogError("No se encontró un sistema de salud en NonPlayableCarrier.");
-        }
-    }
-
     void Update()
     {
+        // Verifica si el sistema de salud está asignado
         if (healthSystem.CurrentHealth <= 0)
         {
             OnDeath(); // Llamar al método de muerte
         }
     }
 
-    /// <summary>
-    /// Maneja la muerte del portador no jugable.
-    /// </summary>
+    // Maneja la muerte del portador no jugable.
     protected override void OnDeath()
     {
         // Si hay un DummyHealth asignado, actualiza el slider a 0

@@ -7,39 +7,37 @@ using UnityEngine.UI;
 public class DummyHealth : MonoBehaviour
 {
     [SerializeField] private Slider healthSlider; // Referencia al Slider de la UI
-    public Slider HealthSlider => healthSlider;   // Propiedad pública de solo lectura
-
-    public HealthStats healthStats; // Referencia al componente HealthStats
+    [SerializeField] private Carrier carrier; // Referencia al Slider de la UI
+    public Slider HealthSlider => healthSlider; // Propiedad pública de solo lectura
 
     private void Start()
     {
-        // Obtener el componente HealthStats
-        healthStats = GetComponent<HealthStats>();
-
-        if (healthStats == null)
+        // Buscar automáticamente un objeto que herede de Carrier
+        if (carrier == null)
         {
-            Debug.LogError("No se encontró un componente HealthStats en el Dummy.");
+            Debug.LogError("No se encontró un componente Carrier en el Dummy.");
             return;
         }
 
-        // Inicializar el Slider con los valores de HealthStats
-        if (healthSlider != null)
-        {
-            healthSlider.maxValue = healthStats.MaxHealth;
-            healthSlider.value = healthStats.CurrentHealth;
-        }
-        else
-        {
-            Debug.LogError("No se asignó un Slider al DummyHealth.");
-        }
+        UpdateBar();
     }
 
     private void Update()
     {
+        // Actualizar el Slider cada frame
+        UpdateBar();
+    }
+
+    private  void UpdateBar()
+    {
         // Actualizar el Slider con los valores actuales de HealthStats
-        if (healthStats != null && healthSlider != null)
+        if (healthSlider != null && carrier.HealthSystem != null)
         {
-            healthSlider.value = healthStats.CurrentHealth;
+            healthSlider.value = (float)carrier.HealthSystem.CurrentHealth / carrier.HealthSystem.MaxHealth;
+        }
+        else
+        {
+            Debug.LogError("No se asignó un Slider al DummyHealth.");
         }
     }
 }

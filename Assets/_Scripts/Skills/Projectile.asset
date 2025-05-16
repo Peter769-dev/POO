@@ -12,10 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff56d6f902e7df144a62f34b4d8ad45a, type: 3}
   m_Name: Projectile
   m_EditorClassIdentifier: 
-  SkillName: Bola de fuego
-  Icon: {fileID: -4837181713397705184, guid: 87bf110b34b49b24db57fa00e56904b1, type: 3}
-  Cooldown: 7
-  CurrentCooldown: 5.448511
-  ActivationCost: 5
+  skillName: 
+  icon: {fileID: 0}
+  cooldown: 3
+  activationCost: 5
   projectilePrefab: {fileID: 566527994955299028, guid: 6b5fdcaeb50705a44a78b3860dce236c, type: 3}
   damage: 10

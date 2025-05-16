@@ -127,10 +127,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 158384194374405154, guid: 470dbaedcf0e4d7438ac72f96d0ed103, type: 3}
-      propertyPath: energyCondition
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 2815604293360727349, guid: 470dbaedcf0e4d7438ac72f96d0ed103, type: 3}
       propertyPath: m_LocalPosition.x
       value: -2

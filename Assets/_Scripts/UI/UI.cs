@@ -14,6 +14,8 @@ public class UI : MonoBehaviour
     [SerializeField] private Slider energySlider;          // Slider para la energía
 
     private PlayableCarrier player; // Referencia al agente controlado
+    private HealthStats healthStats; // Referencia a las estadísticas de salud
+    private EnergyStats energyStats; // Referencia a las estadísticas de energía
 
     void Start()
     {
@@ -23,50 +25,43 @@ public class UI : MonoBehaviour
         // Validar referencias
         if (player == null)
             Debug.LogError("No se encontró un agente en la escena que herede de PlayableCarrier.");
+        else
+        {
+            // Obtener las estadísticas de salud y energía del jugador
+            healthStats = player.HealthSystem;
+            energyStats = player.EnergySystem;
+        }
+
         if (healthText == null || energyText == null)
             Debug.LogError("No se asignaron los textos de la UI en el script UI.");
         if (healthSlider == null || energySlider == null)
             Debug.LogError("No se asignaron los sliders de la UI en el script UI.");
 
-        // Inicializar los sliders con los valores máximos
-        if (player != null)
-        {
-            HealthStats healthStats = player.GetComponent<HealthStats>();
-            EnergyStats energyStats = player.GetComponent<EnergyStats>();
-
-            if (healthStats != null && healthSlider != null)
-            {
-                healthSlider.maxValue = healthStats.MaxHealth;
-                healthSlider.value = healthStats.CurrentHealth;
-            }
-            if (energyStats != null && energySlider != null)
-            {
-                energySlider.maxValue = energyStats.MaxEnergy;
-                energySlider.value = energyStats.CurrentEnergy;
-            }
-        }
+        UpdateUI();
     }
 
     void Update()
     {
-        // Actualizar la UI con las estadísticas del agente
-        if (player != null)
-        {
-            HealthStats healthStats = player.GetComponent<HealthStats>();
-            EnergyStats energyStats = player.GetComponent<EnergyStats>();
+        // Actualizar la UI cada frame
+        UpdateUI();
+    }
 
-            if (healthStats != null)
-            {
-                healthText.text = $"Vida: {healthStats.CurrentHealth}/{healthStats.MaxHealth}";
-                if (healthSlider != null)
-                    healthSlider.value = healthStats.CurrentHealth;
-            }
-            if (energyStats != null)
-            {
-                energyText.text = $"Energía: {energyStats.CurrentEnergy}/{energyStats.MaxEnergy}";
-                if (energySlider != null)
-                    energySlider.value = energyStats.CurrentEnergy;
-            }
+    private void UpdateUI()
+    {
+        if (!player) return;
+
+        if (healthStats != null)
+        {
+            // Actualizar el texto y el slider de vida
+            healthText.text = $"Vida: {healthStats.CurrentHealth}/{healthStats.MaxHealth}";
+            healthSlider.value = (float)healthStats.CurrentHealth / healthStats.MaxHealth;
+        }
+
+        if (energyStats != null)
+        {
+            // Actualizar el texto y el slider de energía
+            energyText.text = $"Energía: {energyStats.CurrentEnergy}/{energyStats.MaxEnergy}";
+            energySlider.value = (float)energyStats.CurrentEnergy / energyStats.MaxEnergy;
         }
     }
 }

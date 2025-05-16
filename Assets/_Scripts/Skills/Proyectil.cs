@@ -11,11 +11,13 @@ public class Proyectil : Skill
 
     public override void Execute(GameObject user)
     {
+        // Verifica si el prefab del proyectil está asignado
         Debug.Log($"{SkillName} ha sido usada. Lanzando proyectil.");
         GameObject projectile = Instantiate(projectilePrefab, user.transform.position, user.transform.rotation);
         ProjectileBehavior behavior = projectile.GetComponent<ProjectileBehavior>();
         if (behavior != null)
         {
+            // Configura el daño del proyectil
             behavior.SetDamage(damage);
         }
     }
