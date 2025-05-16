@@ -1,24 +1,41 @@
 using UnityEngine;
 
+/// <summary>
+/// Controla el movimiento 2D del personaje usando Rigidbody2D y entrada de usuario.
+/// </summary>
+[RequireComponent(typeof(Rigidbody2D))]
 public class Wizard_move : MonoBehaviour
 {
-    [SerializeField]private float speed = 3f; // Identifico CharacterController
-    private Rigidbody2D playerRB;
-    private Vector2 moveInput;
+    [SerializeField] private float speed = 3f; // Velocidad de movimiento
+    private Rigidbody2D rb;
 
+    private void Awake()
+    {
+        // Obtiene la referencia al Rigidbody2D
+        rb = GetComponent<Rigidbody2D>();
+    }
 
-    private void Start()
+    private void Update()
     {
-        playerRB = GetComponent<Rigidbody2D>();
+        // Lee la entrada del usuario cada frame
+        Move();
     }
-    void Update()
+
+    /// <summary>
+    /// Lee la entrada y mueve el personaje usando Rigidbody2D.
+    /// </summary>
+    private void Move()
     {
-        float movex = Input.GetAxis("Horizontal");                       // Lee eje Horizontal
-        float movey  = Input.GetAxis("Vertical");
-        moveInput = new Vector2(movex, movey).normalized;
+        float horizontal = Input.GetAxisRaw("Horizontal");
+        float vertical = Input.GetAxisRaw("Vertical");
+        Vector2 direction = new Vector2(horizontal, vertical).normalized;
+        rb.linearVelocity = direction * speed;
     }
-    private void FixedUpdate()
+
+    private void OnDisable()
     {
-        playerRB.MovePosition(playerRB.position+moveInput*speed*Time.fixedDeltaTime);
+        // Detiene el movimiento si el objeto se desactiva
+        if (rb != null)
+            rb.linearVelocity = Vector2.zero;
     }
 }

@@ -2,17 +2,14 @@ using UnityEngine;
 
 public class Spawner : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-
-    public GameObject  myDummy;
+    public GameObject myDummy;
     GameObject dummyCreated;
 
     public void SpawnDummy()
     {
         if (dummyCreated != null)
             return;
-        dummyCreated=Instantiate(myDummy);
+        // Instancia el dummy en la posición y rotación del spawner
+        dummyCreated = Instantiate(myDummy, transform.position, transform.rotation);
     }
-
-
 }

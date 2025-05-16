@@ -10,10 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 7063389156891853189}
   - component: {fileID: 2625011935011008371}
-  - component: {fileID: -7177089613629399743}
   - component: {fileID: 8523915440706498654}
   - component: {fileID: 2844391052893043580}
   - component: {fileID: 6013103589852415791}
+  - component: {fileID: -7177089613629399743}
   m_Layer: 0
   m_Name: Bala
   m_TagString: Untagged
@@ -91,20 +91,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &-7177089613629399743
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 566527994955299028}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bb796a00799bd7e438cce206c1e2f69a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 10
-  lifetime: 5
 --- !u!50 &8523915440706498654
 Rigidbody2D:
   serializedVersion: 5
@@ -186,3 +172,17 @@ Animation:
   m_AnimatePhysics: 0
   m_UpdateMode: 0
   m_CullingType: 0
+--- !u!114 &-7177089613629399743
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 566527994955299028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb796a00799bd7e438cce206c1e2f69a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 10
+  lifetime: 5

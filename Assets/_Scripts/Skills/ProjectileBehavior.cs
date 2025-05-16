@@ -18,10 +18,10 @@ public class ProjectileBehavior : MonoBehaviour
         transform.Translate(Vector2.right * speed * Time.deltaTime);
     }
 
-    private void OnTriggerEnter2D(Collider2D other) // Cambiado a OnTriggerEnter2D
+    private void OnTriggerEnter2D(Collider2D other)
     {
-        // Destruir el proyectil si colisiona con un objeto que no sea el jugador
-        if (other.CompareTag("Player") == false)
+        // Solo destruir el proyectil si colisiona con un objeto con la tag "Enemy"
+        if (other.CompareTag("Enemy"))
         {
             // Detectar colisión con un objeto que tenga HealthStats
             HealthStats targetHealth = other.GetComponent<HealthStats>();
@@ -40,4 +40,4 @@ public class ProjectileBehavior : MonoBehaviour
     {
         this.damage = damage;
     }
-}   
+}
