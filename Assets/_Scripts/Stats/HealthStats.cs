@@ -4,8 +4,8 @@ using UnityEngine;
 public abstract class Stats : MonoBehaviour
 {
     // Propiedades protegidas para encapsulación
-    protected int maxValue = 100;
-    protected int currentValue = int.MaxValue;
+    [SerializeField] protected int maxValue = 100;
+    [SerializeField] protected int currentValue = int.MaxValue;
 
     // Métodos abstractos para polimorfismo
     public abstract void TakeDamage(float amount);

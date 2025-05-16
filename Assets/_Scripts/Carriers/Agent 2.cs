@@ -2,17 +2,22 @@ using UnityEngine;
 
 public class Agent2 : PlayableCarrier
 {
-    [SerializeField]
-    private float manaCost = 10f;
-
     public override void UseSkill(int index)
     {
+        if (index < 0 || index >= skills.Count) return;
+        Skill skill = skills[index];
         EnergyStats energySystem = GetComponent<EnergyStats>();
 
-        if (energySystem != null && energySystem.CurrentEnergy >= manaCost)
+        if (!skill.IsReady())
         {
-            energySystem.UseEnergy(manaCost); // Consume mana
-            base.UseSkill(index); // Usa la habilidad desde PlayableCarrier
+            Debug.LogWarning($"{skill.SkillName} está en enfriamiento.");
+            return;
+        }
+
+        if (energySystem != null && energySystem.CurrentEnergy >= skill.ActivationCost)
+        {
+            energySystem.UseEnergy(skill.ActivationCost);
+            skill.Use(gameObject);
         }
         else
         {

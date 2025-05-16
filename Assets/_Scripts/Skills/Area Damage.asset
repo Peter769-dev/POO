@@ -13,11 +13,15 @@ MonoBehaviour:
   m_Name: Area Damage
   m_EditorClassIdentifier: 
   SkillName: Circulo arcano
-  Icon: {fileID: -2413806693520163455, guid: 09cf99f391200d6459323e37926de241, type: 3}
-  Cooldown: 10
-  CurrentCooldown: 3.9826221
+  Icon: {fileID: -3279649568605630601, guid: 85597eefab724904d8d22a4a0436c56f, type: 3}
+  Cooldown: 3
+  CurrentCooldown: 0
+  ActivationCost: 10
   damage: 15
-  radius: 1.5
+  radius: 1
   targetLayer:
     serializedVersion: 2
     m_Bits: 512
+  duration: 3
+  tickInterval: 1
+  areaPrefab: {fileID: 4893922072329368588, guid: ad7c840f0fdb1a849abb9bebef537715, type: 3}

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 public class PlayableCarrier : Carrier
 {
     [SerializeField]
-    private List<Skill> skills; // Lista de habilidades asignadas desde el Inspector
+    protected List<Skill> skills; // Lista de habilidades asignadas desde el Inspector
 
     private void Update()
     {

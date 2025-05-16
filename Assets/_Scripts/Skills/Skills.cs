@@ -6,6 +6,7 @@ public abstract class Skill : ScriptableObject
     public Sprite Icon;
     public float Cooldown;
     public float CurrentCooldown;
+    public float ActivationCost;
 
     public abstract void Execute(GameObject user); // Método que define la lógica de la habilidad
 
@@ -31,5 +32,10 @@ public abstract class Skill : ScriptableObject
             CurrentCooldown -= deltaTime;
             CurrentCooldown = Mathf.Clamp(CurrentCooldown, 0, Cooldown);
         }
+    }
+
+    public bool IsReady()
+    {
+        return CurrentCooldown <= 0;
     }
 }

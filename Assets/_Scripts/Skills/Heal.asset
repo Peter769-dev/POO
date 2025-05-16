@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: Heal
   m_EditorClassIdentifier: 
   SkillName: Luz lunar
-  Icon: {fileID: 0}
+  Icon: {fileID: 6305741617453658754, guid: 3a7b88c0dd865be44a0c5f6eacb0496d, type: 3}
   Cooldown: 10
   CurrentCooldown: 0
+  ActivationCost: 0
   healAmount: 50

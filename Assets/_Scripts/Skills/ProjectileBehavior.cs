@@ -14,22 +14,25 @@ public class ProjectileBehavior : MonoBehaviour
 
     private void Update()
     {
-        // Mover el proyectil hacia adelante
-        transform.Translate(Vector3.forward * speed * Time.deltaTime);
+        // Mover el proyectil hacia la derecha (espacio 2D)
+        transform.Translate(Vector2.right * speed * Time.deltaTime);
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter2D(Collider2D other) // Cambiado a OnTriggerEnter2D
     {
-        // Detectar colisión con un objeto que tenga HealthStats
-        HealthStats targetHealth = other.GetComponent<HealthStats>();
-        if (targetHealth != null)
+        // Destruir el proyectil si colisiona con un objeto que no sea el jugador
+        if (other.CompareTag("Player") == false)
         {
-            targetHealth.TakeDamage(damage);
-            Debug.Log($"El proyectil infligió {damage} de daño a {other.name}.");
+            // Detectar colisión con un objeto que tenga HealthStats
+            HealthStats targetHealth = other.GetComponent<HealthStats>();
+            if (targetHealth != null)
+            {
+                targetHealth.TakeDamage(damage);
+                Debug.Log($"El proyectil infligió {damage} de daño a {other.name}.");
+            }
+            // Destruir el proyectil al impactar
+            Destroy(gameObject);
         }
-
-        // Destruir el proyectil al impactar
-        Destroy(gameObject);
     }
 
     // Método para configurar el daño del proyectil
@@ -37,4 +40,4 @@ public class ProjectileBehavior : MonoBehaviour
     {
         this.damage = damage;
     }
-}
+}   

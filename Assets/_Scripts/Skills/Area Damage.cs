@@ -3,25 +3,27 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New Area Damage", menuName = "Skills/Area Damage")]
 public class AreaDamage : Skill
 {
-    [SerializeField] private float damage; // Daño que inflige el área
-    [SerializeField] private float radius; // Radio del área de daño
-    [SerializeField] private LayerMask targetLayer; // Capa de los objetivos afectados
+    [SerializeField] private float damage;
+    [SerializeField] private float radius;
+    [SerializeField] private LayerMask targetLayer;
+    [SerializeField] private float duration = 3f;
+    [SerializeField] private float tickInterval = 1f;
+    [SerializeField] private GameObject areaPrefab; // Prefab con AreaDamageZone
 
     public override void Execute(GameObject user)
     {
-        Debug.Log($"{SkillName} ha sido usada. Creando área de daño.");
+        Debug.Log($"{SkillName} ha sido usada. Creando área de daño persistente.");
 
-        // Crear el área de daño
-        Collider[] hitColliders = Physics.OverlapSphere(user.transform.position, radius, targetLayer);
-        foreach (Collider hitCollider in hitColliders)
+        Vector3 spawnPosition = user.transform.position + new Vector3(0f, -0.82f, 0f);
+        GameObject area = Instantiate(areaPrefab, spawnPosition, Quaternion.identity);
+        var zone = area.GetComponent<AreaDamageZone>();
+        if (zone != null)
         {
-            // Buscar el componente HealthStats en los objetos afectados
-            HealthStats targetHealth = hitCollider.GetComponent<HealthStats>();
-            if (targetHealth != null)
-            {
-                targetHealth.TakeDamage(damage); // Aplicar daño
-                Debug.Log($"Infligió {damage} de daño a {hitCollider.name}.");
-            }
+            var box = area.GetComponent<BoxCollider2D>();
+            if (box != null)
+                box.size = new Vector2(radius, radius);
+
+            zone.Initialize(damage, tickInterval, duration, targetLayer);
         }
     }
 }

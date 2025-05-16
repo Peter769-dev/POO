@@ -2,17 +2,22 @@ using UnityEngine;
 
 public class Agent1 : PlayableCarrier
 {
-    [SerializeField]
-    private float healthCost = 10f;
-
     public override void UseSkill(int index)
     {
+        if (index < 0 || index >= skills.Count) return;
+        Skill skill = skills[index];
         HealthStats healthSystem = GetComponent<HealthStats>();
 
-        if (healthSystem != null && healthSystem.CurrentHealth > healthCost)
+        if (!skill.IsReady())
         {
-            healthSystem.TakeDamage(healthCost); // Consume vida
-            base.UseSkill(index); // Usa la habilidad desde PlayableCarrier
+            Debug.LogWarning($"{skill.SkillName} está en enfriamiento.");
+            return;
+        }
+
+        if (healthSystem != null && healthSystem.CurrentHealth > skill.ActivationCost)
+        {
+            healthSystem.TakeDamage(skill.ActivationCost);
+            skill.Use(gameObject);
         }
         else
         {
